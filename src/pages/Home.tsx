@@ -12,7 +12,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import ProfessionalBackground from "@/components/Background";
@@ -65,6 +64,7 @@ const jobs = [
     company: "Dash Home",
     logo: "/LogoDashhome.png",
     period: "Jul 2022 - Aug 2025",
+    link: "https://dashhome.com.ar/",
     description:
       "Founded company providing custom home security and automation systems with comprehensive security implementations.",
   },
@@ -243,7 +243,7 @@ const hero = {
               measures throughout the software development lifecycle `,
 };
 
-const recentPosts = [
+/*const recentPosts = [
   {
     title: "Understanding Zero-Day Vulnerabilities",
     excerpt:
@@ -266,6 +266,7 @@ const recentPosts = [
     tags: ["AI", "Future Tech"],
   },
 ];
+*/
 
 const contact = {
   title: "Contact Me",
@@ -379,7 +380,7 @@ export default function Home() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    {degree.skills.map((skill, index) => (
+                    {degree.skills.map((skill) => (
                       <Badge className="m-1" variant="outline">
                         {skill}
                       </Badge>

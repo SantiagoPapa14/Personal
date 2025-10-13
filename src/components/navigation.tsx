@@ -5,9 +5,9 @@ import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Experience", href: "/experience" },
-  { name: "Blog", href: "/blog" },
+  { name: "About Me", href: "/" },
+  //  { name: "Experience", href: "/experience" },
+  // { name: "Blog", href: "/blog" },
 ];
 
 const socialLinks = [
