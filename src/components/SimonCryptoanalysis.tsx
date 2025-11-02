@@ -227,12 +227,9 @@ export function CryptanalysisSimulator() {
       const { ciphertext: c1 } = simonEncrypt(dcPlaintext1, dcKey, dcVariant);
       const { ciphertext: c2 } = simonEncrypt(dcPlaintext2, dcKey, dcVariant);
 
-      const p1 = BigInt("0x" + dcPlaintext1);
-      const p2 = BigInt("0x" + dcPlaintext2);
       const ct1 = BigInt("0x" + c1);
       const ct2 = BigInt("0x" + c2);
 
-      const inputDiff = p1 ^ p2;
       const outputDiff = ct1 ^ ct2;
 
       const hammingWeight = outputDiff.toString(2).split("1").length - 1;

@@ -147,10 +147,10 @@ export function IoTSimulator() {
           const updated = { ...prev, status: nextStatus };
 
           setMessages((msgs) =>
-            msgs.map((m) => (m.id === prev.id ? updated : m)),
+            msgs.map((m) => (m.id === prev.id ? (updated as Message) : m)),
           );
 
-          return nextStatus === "complete" ? null : updated;
+          return nextStatus === "complete" ? null : (updated as Message);
         });
       }, 1500);
 
