@@ -1,19 +1,22 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ProfessionalBackground from "./components/Background";
 import { Navigation } from "./components/navigation";
-import Experience from "@/pages/Experience";
+import Simon from "@/pages/Simon";
 import Home from "@/pages/Home";
 
 function App() {
   return (
     <BrowserRouter>
-      <Navigation />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/experience" element={<Experience />} />
+      <ProfessionalBackground opacity={0.7}>
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/simon" element={<Simon />} />
 
-        {/* Catch-all redirect */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+          {/* Catch-all redirect */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </ProfessionalBackground>
     </BrowserRouter>
   );
 }

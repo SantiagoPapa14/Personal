@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/carousel";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import ProfessionalBackground from "@/components/Background";
 
 const toolbox = [
   "TypeScript",
@@ -82,6 +81,13 @@ const projects = [
     description:
       "Free mobile app for catholics looking to learn latin through reading the bible.",
     tags: ["React-Native", "Expo", "Express"],
+  },
+  {
+    title: "Simon Cipher Demo",
+    link: "/simon",
+    description:
+      "Interactive demo for simon cipher with visualization of encryption and IoT simulations.",
+    tags: ["React", "Encryption", "Security"],
   },
   {
     title: "Snoopy",
@@ -276,175 +282,170 @@ const contact = {
 
 export default function Home() {
   return (
-    <ProfessionalBackground opacity={0.7}>
-      {/* Main Content */}
-      <main className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
-        <div className="max-w-4xl mx-auto space-y-16">
-          {/* Hero Section */}
-          <section className="py-12">
-            <h1 className="text-4xl font-bold text-foreground mb-4 text-balance text-center">
-              {hero.title}
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed text-pretty text-center ">
-              {hero.description}
-              <span className="inline-block w-[0.6ch] animate-blink">█</span>
-            </p>
-          </section>
+    <main className="container max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
+      <div className="max-w-4xl mx-auto space-y-16">
+        {/* Hero Section */}
+        <section className="py-12">
+          <h1 className="text-4xl font-bold text-foreground mb-4 text-balance text-center">
+            {hero.title}
+          </h1>
+          <p className="text-xl text-muted-foreground leading-relaxed text-pretty text-center ">
+            {hero.description}
+            <span className="inline-block w-[0.6ch] animate-blink">█</span>
+          </p>
+        </section>
 
-          {/* Jobs */}
-          <section>
-            <h2 className="text-2xl font-semibold text-foreground mb-6">
-              Experience
-            </h2>
-            <div className="space-y-4">
-              {jobs.map((job, index) => (
-                <Card
-                  key={index}
-                  className={`hover:shadow-lg transition-shadow ${job.link ? "cursor-pointer" : ""}`}
-                  onClick={() =>
-                    job.link ? window.open(job.link, "_blank") : null
-                  }
-                >
-                  <CardHeader>
-                    <div className="flex items-start">
-                      <img src={job.logo} alt={job.title} className="w-8 h-8" />
-                      <div className="ml-3">
-                        <CardTitle className="text-lg">{job.title}</CardTitle>
-                        <CardDescription className="text-base">
-                          {job.company}
-                        </CardDescription>
-                      </div>
-                      <Badge className="ml-auto" variant="outline">
-                        {job.period}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">{job.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
-              <div
-                data-iframe-width="150"
-                data-iframe-height="270"
-                data-share-badge-id="edfe0a25-91a6-4995-900e-b886409c7f2a"
-                data-share-badge-host="https://www.credly.com"
-              ></div>
-            </div>
-          </section>
-
-          {/* Toolbox */}
-          <section>
-            <h2 className="text-2xl font-semibold text-foreground mb-6">
-              Toolbox
-            </h2>
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex flex-wrap gap-2">
-                  {toolbox.map((tool) => (
-                    <Badge key={tool} variant="secondary" className="text-sm">
-                      {tool}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </section>
-
-          {/* Education */}
-          <section>
-            <h2 className="text-2xl font-semibold text-foreground mb-6">
-              {studies.title}
-            </h2>
-            <div className="space-y-4">
-              {studies.data.map((degree, index) => (
-                <Card
-                  key={index}
-                  className="hover:shadow-lg hover:cursor-pointer transition-shadow"
-                  onClick={() => window.open(degree.link, "_blank")}
-                >
-                  <CardHeader>
-                    <div className="flex items-start">
-                      <div className="w-12 h-12">
-                        <img src={degree.logo} alt="Logo" />
-                      </div>
-                      <CardTitle className="text-lg flex-row ml-2">
-                        <div className="text-foreground">{degree.title}</div>
-                        <div className="text-muted-foreground">
-                          {degree.institution}
-                        </div>
-                      </CardTitle>
-                      <CardDescription className="text-base ml-auto">
-                        {degree.period}
+        {/* Jobs */}
+        <section>
+          <h2 className="text-2xl font-semibold text-foreground mb-6">
+            Experience
+          </h2>
+          <div className="space-y-4">
+            {jobs.map((job, index) => (
+              <Card
+                key={index}
+                className={`hover:shadow-lg transition-shadow ${job.link ? "cursor-pointer" : ""}`}
+                onClick={() =>
+                  job.link ? window.open(job.link, "_blank") : null
+                }
+              >
+                <CardHeader>
+                  <div className="flex items-start">
+                    <img src={job.logo} alt={job.title} className="w-8 h-8" />
+                    <div className="ml-3">
+                      <CardTitle className="text-lg">{job.title}</CardTitle>
+                      <CardDescription className="text-base">
+                        {job.company}
                       </CardDescription>
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    {degree.skills.map((skill) => (
-                      <Badge className="m-1" variant="outline">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </section>
+                    <Badge className="ml-auto" variant="outline">
+                      {job.period}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{job.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+            <div
+              data-iframe-width="150"
+              data-iframe-height="270"
+              data-share-badge-id="edfe0a25-91a6-4995-900e-b886409c7f2a"
+              data-share-badge-host="https://www.credly.com"
+            ></div>
+          </div>
+        </section>
 
-          {/* Projects */}
-          <section>
-            <h2 className="text-2xl font-semibold text-foreground mb-6">
-              Featured Projects
-            </h2>
-            <Carousel
-              opts={{
-                align: "start",
-              }}
-              className="w-full"
-            >
-              <CarouselContent>
-                {projects.map((project, index) => (
-                  <CarouselItem
-                    key={index}
-                    className="md:basis-1/2 lg:basis-1/3"
-                  >
-                    <div className="p-1 flex justify-center">
-                      <Card
-                        key={index}
-                        className="hover:shadow-lg transition-shadow w-[270px] h-[250px] flex-shrink-0"
-                      >
-                        <CardHeader>
-                          <CardTitle className="text-lg text-balance">
-                            {project.title}
-                          </CardTitle>
-                          <CardDescription className="text-pretty">
-                            {project.description}
-                          </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="flex flex-wrap gap-2">
-                            {project.tags.map((tag) => (
-                              <Badge
-                                key={tag}
-                                variant="secondary"
-                                className="text-xs"
-                              >
-                                {tag}
-                              </Badge>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
+        {/* Toolbox */}
+        <section>
+          <h2 className="text-2xl font-semibold text-foreground mb-6">
+            Toolbox
+          </h2>
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardContent className="p-6">
+              <div className="flex flex-wrap gap-2">
+                {toolbox.map((tool) => (
+                  <Badge key={tool} variant="secondary" className="text-sm">
+                    {tool}
+                  </Badge>
                 ))}
-              </CarouselContent>
-              <CarouselPrevious className="max-sm:left-1" />
-              <CarouselNext className="max-sm:right-1" />
-            </Carousel>
-          </section>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
 
-          {/* Recent Blog Posts 
+        {/* Education */}
+        <section>
+          <h2 className="text-2xl font-semibold text-foreground mb-6">
+            {studies.title}
+          </h2>
+          <div className="space-y-4">
+            {studies.data.map((degree, index) => (
+              <Card
+                key={index}
+                className="hover:shadow-lg hover:cursor-pointer transition-shadow"
+                onClick={() => window.open(degree.link, "_blank")}
+              >
+                <CardHeader>
+                  <div className="flex items-start">
+                    <div className="w-12 h-12">
+                      <img src={degree.logo} alt="Logo" />
+                    </div>
+                    <CardTitle className="text-lg flex-row ml-2">
+                      <div className="text-foreground">{degree.title}</div>
+                      <div className="text-muted-foreground">
+                        {degree.institution}
+                      </div>
+                    </CardTitle>
+                    <CardDescription className="text-base ml-auto">
+                      {degree.period}
+                    </CardDescription>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  {degree.skills.map((skill) => (
+                    <Badge className="m-1" variant="outline">
+                      {skill}
+                    </Badge>
+                  ))}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Projects */}
+        <section>
+          <h2 className="text-2xl font-semibold text-foreground mb-6">
+            Featured Projects
+          </h2>
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {projects.map((project, index) => (
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                  <div className="p-1 flex justify-center">
+                    <Card
+                      key={index}
+                      className="hover:shadow-lg transition-shadow w-[270px] h-[250px] flex-shrink-0"
+                    >
+                      <CardHeader>
+                        <CardTitle className="text-lg text-balance">
+                          {project.title}
+                        </CardTitle>
+                        <CardDescription className="text-pretty">
+                          {project.description}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex flex-wrap gap-2">
+                          {project.tags.map((tag) => (
+                            <Badge
+                              key={tag}
+                              variant="secondary"
+                              className="text-xs"
+                            >
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="max-sm:left-1" />
+            <CarouselNext className="max-sm:right-1" />
+          </Carousel>
+        </section>
+
+        {/* Recent Blog Posts 
           <section>
             <h2 className="text-2xl font-semibold text-foreground mb-6">
               Recent Posts
@@ -487,35 +488,34 @@ export default function Home() {
           </section>
           */}
 
-          {/* Get in Touch */}
-          <section>
-            <h2 className="text-2xl font-semibold text-foreground mb-6">
-              {contact.title}
-            </h2>
-            <Card>
-              <CardContent className="p-6">
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  {contact.description}
-                </p>
-                <div className="flex gap-4">
-                  <Button asChild>
-                    <a href="mailto:papa.santiago321@gmail.com">Send Email</a>
-                  </Button>
-                  <Button variant="outline" asChild>
-                    <a
-                      href="https://www.linkedin.com/in/santiago-papa-353171194/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Connect on LinkedIn
-                    </a>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </section>
-        </div>
-      </main>
-    </ProfessionalBackground>
+        {/* Get in Touch */}
+        <section>
+          <h2 className="text-2xl font-semibold text-foreground mb-6">
+            {contact.title}
+          </h2>
+          <Card>
+            <CardContent className="p-6">
+              <p className="text-muted-foreground mb-6 leading-relaxed">
+                {contact.description}
+              </p>
+              <div className="flex gap-4">
+                <Button asChild>
+                  <a href="mailto:papa.santiago321@gmail.com">Send Email</a>
+                </Button>
+                <Button variant="outline" asChild>
+                  <a
+                    href="https://www.linkedin.com/in/santiago-papa-353171194/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Connect on LinkedIn
+                  </a>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+      </div>
+    </main>
   );
 }
