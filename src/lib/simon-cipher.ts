@@ -175,14 +175,30 @@ export function simonEncrypt(
 
   // Encryption rounds
   for (let i = 0; i < rounds; i++) {
+    // Store initial values for this round
+    const x_i = x;
+    const y_i = y;
+
+    // Step 1: Circular left rotations of x
     const s1 = rotateLeft(x, 1, wordSize);
     const s8 = rotateLeft(x, 8, wordSize);
     const s2 = rotateLeft(x, 2, wordSize);
 
-    const f = ((s1 & s8) ^ s2) & mask;
-    const tmp = y;
-    y = x;
-    x = (f ^ tmp ^ roundKeys[i]) & mask;
+    // Step 2: Compute intermediate AND operation
+    const s1_and_s8 = s1 & s8 & mask;
+
+    // Step 3: Compute the round function f(x)
+    const f = (s1_and_s8 ^ s2) & mask;
+
+    // Step 4: XOR with y (old right word)
+    const f_xor_y = (f ^ y) & mask;
+
+    // Step 5: XOR with round key
+    const f_xor_y_xor_k = (f_xor_y ^ roundKeys[i]) & mask;
+
+    // Step 6: Update values (Feistel structure)
+    y = x; // New right word = old left word
+    x = f_xor_y_xor_k; // New left word = result
 
     steps.push({
       round: i + 1,
@@ -190,15 +206,42 @@ export function simonEncrypt(
       rightWord: bigIntToHex(y, wordSize),
       roundKey: bigIntToHex(roundKeys[i], wordSize),
       operations: [
-        { operation: "S¹(x)", result: bigIntToHex(s1, wordSize) },
-        { operation: "S⁸(x)", result: bigIntToHex(s8, wordSize) },
-        { operation: "S²(x)", result: bigIntToHex(s2, wordSize) },
-        { operation: "f(x)", result: bigIntToHex(f, wordSize) },
+        {
+          operation: "xᵢ",
+          result: bigIntToHex(x_i, wordSize),
+        },
+        {
+          operation: "yᵢ",
+          result: bigIntToHex(y_i, wordSize),
+        },
+        {
+          operation: "S¹(xᵢ)",
+          result: bigIntToHex(s1, wordSize),
+        },
+        {
+          operation: "S⁸(xᵢ)",
+          result: bigIntToHex(s8, wordSize),
+        },
+        {
+          operation: "S²(xᵢ)",
+          result: bigIntToHex(s2, wordSize),
+        },
+        {
+          operation: "f(xᵢ) = [S¹(xᵢ) ∧ S⁸(xᵢ)] ⊕ S²(xᵢ)",
+          result: bigIntToHex(f, wordSize),
+        },
+        {
+          operation: "xᵢ₊₁ = f(xᵢ) ⊕ yᵢ ⊕ kᵢ",
+          result: bigIntToHex(x, wordSize),
+        },
+        {
+          operation: "yᵢ₊₁ = xᵢ",
+          result: bigIntToHex(y, wordSize),
+        },
       ],
-      description: `Ronda ${i + 1}`,
+      description: `Ronda ${i + 1}: Estructura Feistel de SIMON`,
     });
   }
-
   const ciphertext = bigIntToHex(x, wordSize) + bigIntToHex(y, wordSize);
 
   return { ciphertext, steps };

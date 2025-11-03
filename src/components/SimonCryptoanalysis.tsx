@@ -41,12 +41,13 @@ interface WeakParameter {
 
 export function CryptanalysisSimulator() {
   // Brute Force State
-  const [bfPlaintext, setBfPlaintext] = useState<string>("48656c6c6f");
+  const [bfPlaintext, setBfPlaintext] = useState<string>("48656c6c");
   const [bfCiphertext, setBfCiphertext] = useState<string>("");
   const [bfVariant, setBfVariant] = useState<SimonVariant>("32/64");
   const [bfActualKey, setBfActualKey] = useState<string>("0f0e0d0c0b0a0908");
   const [bfRunning, setBfRunning] = useState(false);
   const [bfProgress, setBfProgress] = useState(0);
+  const [bfStartAttempts, setBfStartAttempts] = useState(50000);
   const [bfAttempts, setBfAttempts] = useState(0);
   const [bfResult, setBfResult] = useState<BruteForceResult | null>(null);
 
@@ -86,7 +87,7 @@ export function CryptanalysisSimulator() {
     setBfResult(null);
 
     const keyLength = bfVariant === "32/64" ? 16 : 32;
-    const maxAttempts = Math.min(50000, Math.pow(16, keyLength));
+    const maxAttempts = Math.min(bfStartAttempts, Math.pow(16, keyLength));
     let attempts = 0;
     let currentKeyNum = BigInt(0); // For sequential
 
@@ -445,24 +446,34 @@ export function CryptanalysisSimulator() {
 
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-4">
-              <div>
-                <Label className="mb-2">Variante de Simon</Label>
-                <Select
-                  value={bfVariant}
-                  onValueChange={(v) => setBfVariant(v as SimonVariant)}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="32/64">
-                      Simon 32/64 (Más fácil)
-                    </SelectItem>
-                    <SelectItem value="64/128">
-                      Simon 64/128 (Más difícil)
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
+              <div className="flex flex-row">
+                <div>
+                  <Label className="mb-2">Variante de Simon</Label>
+                  <Select
+                    value={bfVariant}
+                    onValueChange={(v) => setBfVariant(v as SimonVariant)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="32/64">
+                        Simon 32/64 (Más fácil)
+                      </SelectItem>
+                      <SelectItem value="64/128">
+                        Simon 64/128 (Más difícil)
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="ml-4">
+                  <Label className="mb-2">Intentos</Label>
+                  <Input
+                    type="number"
+                    value={bfStartAttempts}
+                    onChange={(e) => setBfStartAttempts(Number(e.target.value))}
+                  />
+                </div>
               </div>
 
               <div>
@@ -563,19 +574,19 @@ export function CryptanalysisSimulator() {
 
               {bfResult && (
                 <Alert
-                  className={
+                  className={`flex items-start ${
                     bfResult.success
                       ? "border-green-500/50 bg-green-500/10"
                       : "border-red-500/50 bg-red-500/10"
-                  }
+                  }`}
                 >
-                  <div className="flex items-start gap-3">
+                  <div className="flex gap-3 w-full">
                     {bfResult.success ? (
-                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
                     ) : (
-                      <XCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+                      <XCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
                     )}
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <div className="font-semibold text-sm mb-2">
                         {bfResult.success
                           ? "¡Clave Encontrada!"
